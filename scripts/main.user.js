@@ -72,7 +72,6 @@ var expand = function(e){
       $entry.classList.remove('topic-hot');
       $jsTopicList.appendChild($entry);
     });
-    console.log(entries, popularEntries);
     $topicUnit.appendChild($jsTopicList);
   };
   xhr.responseType = 'document';
