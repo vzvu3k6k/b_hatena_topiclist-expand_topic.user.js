@@ -1,0 +1,26 @@
+{
+  "name": "b_hatena_topiclist-expand_topic",
+  "version": "0.0.1",
+  "description": "トピック一覧ページで各トピックの右下にボタンを追加。クリックするとトピックを展開。",
+  "main": "gulpfile.js",
+  "scripts": {
+    "watch": "gulp watch",
+    "scripts": "gulp scripts",
+    "styles": "gulp styles"
+  },
+  "author": "vzvu3k6k",
+  "license": "CC0",
+  "private": true,
+  "userscript": {
+    "name": "はてブの「トピック」をチラ見",
+    "namespace": "http://vzvu3k6k.tk/"
+  },
+  "dependencies": {
+    "gulp": "^3.8.10",
+    "gulp-concat": "^2.4.3",
+    "gulp-file-include": "^0.8.0",
+    "gulp-replace": "^0.5.2",
+    "gulp-ruby-sass": "^1.0.0-alpha.3",
+    "slugify2": "0.0.2"
+  }
+}

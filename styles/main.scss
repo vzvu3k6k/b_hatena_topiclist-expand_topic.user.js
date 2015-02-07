@@ -1,0 +1,36 @@
+div.topic-contents ul li.topic-unit {
+  .__expand-button {
+    bottom: 0;
+    font-size: 120%;
+    display: none;
+    position: absolute;
+    right: 11px;
+    transform: rotate(90deg);
+  }
+
+  &:hover .__expand-button {
+    display: initial;
+  }
+
+  &.__expanded-topic {
+    height: auto;
+    width: 400px; // .entrylist-unitが収まるサイズ
+
+    h4 a.topic-title {
+      white-space: normal; // 折り返しを有効にする
+    }
+
+    ul.topic-data li.thumbnail {
+      top: 0; // bottom: 0になっているのを上書き
+    }
+
+    li.entrylist-unit {
+      border-bottom: none;
+      margin: 0;
+
+      &:before, &:after {
+        display: none; // 吹き出しなどを非表示にする
+      }
+    }
+  }
+}
