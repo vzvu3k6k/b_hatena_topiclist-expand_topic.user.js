@@ -6,6 +6,7 @@
 // @match          http://b.hatena.ne.jp/topiclist*
 // @namespace      {{namespace}}
 // @license        {{license}}
+// @grant          unsafeWindow
 // @grant          GM_addStyle
 // ==/UserScript==
 
@@ -54,6 +55,10 @@ var expand = function($topicUnit){
       $jsTopicList.appendChild($entry);
     });
     $topicUnit.appendChild($jsTopicList);
+
+    // 「あとで読む」ボタンを有効化
+    var lrlbl = unsafeWindow.Hatena.Bookmark.LazyReadLaterButtonLoader.getInstance();
+    lrlbl.autoPagerizeBeforeHandler($jsTopicList);
   };
   xhr.responseType = 'document';
   xhr.send();
