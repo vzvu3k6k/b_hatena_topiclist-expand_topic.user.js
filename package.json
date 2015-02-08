@@ -1,6 +1,6 @@
 {
   "name": "b_hatena_topiclist-expand_topic",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "トピック一覧ページで各トピックの右下にボタンを追加。クリックするとトピックを展開。",
   "main": "gulpfile.js",
   "scripts": {
