@@ -13,20 +13,6 @@ GM_addStyle(`@@include('./tmp/style.css')`);
 
 var $jsTopicList = document.querySelector('.js-topic-list');
 
-$jsTopicList.addEventListener('mouseover', function(e){
-  var $topicUnit = getTopicUnit(e.target);
-  if(!$topicUnit) return;
-  if($topicUnit.querySelector('.__expand-button')) return;
-  if($topicUnit.classList.contains('__expanded-topic')) return;
-
-  var $expandButton = document.createElement('a');
-  $expandButton.textContent = '»';
-  $expandButton.className = '__expand-button';
-  $expandButton.addEventListener('click', expand);
-  $expandButton.href = '#';
-  $topicUnit.appendChild($expandButton);
-});
-
 var getTopicUnit = function($node){
   var $topicUnit = $node;
   while(!$topicUnit.classList.contains('topic-unit')){
@@ -36,12 +22,7 @@ var getTopicUnit = function($node){
   return $topicUnit;
 };
 
-var expand = function(e){
-  e.preventDefault();
-
-  var $topicUnit = getTopicUnit(e.target);
-  e.target.remove();
-
+var expand = function($topicUnit){
   var xhr = new XMLHttpRequest();
   xhr.open('GET', $topicUnit.querySelector('.topic-title').href + '?type=highlight');
   xhr.onload = function(){
@@ -77,3 +58,39 @@ var expand = function(e){
   xhr.responseType = 'document';
   xhr.send();
 };
+
+var addExpandButton = function($node){
+  var $expandButton = document.createElement('a');
+  $expandButton.textContent = '»';
+  $expandButton.className = '__expand-button';
+  $expandButton.addEventListener('click', function(e){
+    e.preventDefault();
+    expand(getTopicUnit(e.target));
+    e.target.remove();
+  });
+  $expandButton.href = '#';
+  $node.appendChild($expandButton);
+};
+
+Array.prototype.forEach.call(
+  document.querySelectorAll('.topic-unit') || [],
+  addExpandButton
+);
+
+var observer = new MutationObserver(function(mutations){
+  mutations.forEach(function(mutation){
+    Array.prototype.forEach.call(
+      mutation.addedNodes || [],
+      function($node){
+        if($node.nodeType !== Node.ELEMENT_NODE) return;
+        if(!$node.classList.contains('topic-list')) return;
+
+        Array.prototype.forEach.call(
+          $node.querySelectorAll('.topic-unit') || [],
+          addExpandButton
+        );
+      });
+  });
+});
+
+observer.observe($jsTopicList, {childList: true});
